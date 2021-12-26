@@ -1,0 +1,24 @@
+---
+__php_default_version_alpine: "7"
+
+__php_packages:
+  - php{{ php_default_version_alpine }}
+  - php{{ php_default_version_alpine }}-fpm
+  - php{{ php_default_version_alpine }}-opcache
+  - php{{ php_default_version_alpine }}-pecl-apcu
+
+__php_webserver_daemon: "apache2"
+
+__php_conf_paths:
+  - /etc/php{{ php_default_version_alpine }}
+__php_extension_conf_paths:
+  - /etc/php{{ php_default_version_alpine }}/conf.d
+
+__php_apc_conf_filename: apcu.ini
+__php_opcache_conf_filename: 00_opcache.ini
+__php_fpm_daemon: php-fpm{{ php_default_version_alpine }} 
+__php_fpm_conf_path: /etc/php{{ php_default_version_alpine }}/php-fpm.conf
+__php_fpm_pool_conf_path: /etc/php{{ php_default_version_alpine }}/php-fpm.d/www.conf
+
+__php_fpm_pool_user: nobody
+__php_fpm_pool_group: nobody

@@ -1,0 +1,12 @@
+---
+
+- name: Update apk cache.
+  apk:
+    update_cache: yes
+
+- name: Ensure PHP packages are installed.
+  apk:
+    name: "{{ php_packages + php_packages_extra }}"
+    state: "{{ php_packages_state }}"
+  register: php_package_install
+  notify: restart webserver

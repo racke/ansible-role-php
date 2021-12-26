@@ -12,6 +12,11 @@
     php_default_version_debian: "{{ __php_default_version_debian }}"
   when: php_default_version_debian is not defined and ansible_os_family == 'Debian'
 
+- name: Set the default PHP version for Alpine-based OSes.
+  set_fact:
+    php_default_version_alpine: "{{ __php_default_version_alpine }}"
+  when: php_default_version_alpine is not defined and ansible_os_family == 'Alpine'
+
 - name: Include OS-specific variables.
   include_vars: "{{ ansible_os_family }}.yml"
 
@@ -56,6 +61,11 @@
   when: php_fpm_conf_path is not defined
 
 # Setup/install tasks.
+- include_tasks: setup-Alpine.yml
+  when:
+    - not php_install_from_source
+    - ansible_os_family == 'Alpine'
+
 - include_tasks: setup-RedHat.yml
   when:
     - not php_install_from_source
